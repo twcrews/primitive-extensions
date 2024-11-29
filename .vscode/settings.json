@@ -1,0 +1,4 @@
+{
+	"dotnet.defaultSolution": "Crews.Extensions.Primitives.sln",
+	"dotnet.unitTests.runSettingsPath": "Crews.Extensions.Primitives.Tests/.runsettings"
+}
