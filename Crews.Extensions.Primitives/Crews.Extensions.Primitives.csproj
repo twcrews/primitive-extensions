@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<DefaultNamespace>Crews.Extensions.Primitives</DefaultNamespace>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>Crews.Extensions.Primitives</PackageId>
+		<PackageVersion>1.0.0</PackageVersion>
+		<Authors>Tommy Crews</Authors>
+		<Description>
+			Contains extension methods and other utilities for working with primitive types like strings and integers.
+		</Description>
+		<PackageProjectUrl>https://github.com/twcrews/primitive-extensions</PackageProjectUrl>
+		<PackageIcon>icon.png</PackageIcon>
+		<RepositoryUrl>https://github.com/twcrews/primitive-extensions.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>String;Int;Float;Enum;Primitive;Object</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>
+			https://github.com/twcrews/primitive-extensions/blob/master/CHANGELOG.md
+		</PackageReleaseNotes>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="icon.png" Pack="true" PackagePath="\" />
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+</Project>
