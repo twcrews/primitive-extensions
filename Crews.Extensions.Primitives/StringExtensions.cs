@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 
 namespace Crews.Extensions.Primitives;
 
@@ -65,4 +66,18 @@ public static class StringExtensions
     byte[] data = encoding.GetBytes(target);
     return Convert.ToBase64String(data);
   }
+
+  /// <summary>
+  /// Converts <paramref name="target"/> into a pascal case string.
+  /// </summary>
+  /// <param name="target">The string to convert.</param>
+  /// <param name="delimiters">
+  /// One or more characters considered delimiters in <paramref name="target"/>. If unspecified, hyphen ('-'),
+  /// underscore ('_'), and space (' ') characters are used.
+  /// </param>
+  /// <returns>A pascal case form of <paramref name="target"/>.</returns>
+  public static string ToPascalCase(this string target, params char[] delimiters) => string.Join("", target
+    .Split(delimiters.Length > 0 ? delimiters : ['-', ' ', '_'], 
+      StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+    .Select(word => char.ToUpper(word[0]) + word[1..]));
 }

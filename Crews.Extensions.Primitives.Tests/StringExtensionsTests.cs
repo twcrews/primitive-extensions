@@ -57,4 +57,17 @@ public class StringExtensionsTests
     string actual = encoding == null ? input.Base64Encode() : input.Base64Encode(expectedEncoding);
     Assert.Equal(expected, actual);
   }
+
+  [Theory(DisplayName = "ToPascalCase correctly converts strings")]
+  [InlineData("snake_case_string", new char[] {}, "SnakeCaseString")]
+  [InlineData("kebab-case-string", new char[] {}, "KebabCaseString")]
+  [InlineData("camelCaseString", new char[] {}, "CamelCaseString")]
+  [InlineData("variable_delimited-and.Cased string", new char[] {}, "VariableDelimitedAnd.CasedString")]
+  [InlineData("PascalCaseString", new char[] {}, "PascalCaseString")]
+  [InlineData("custom_delimited.string", new char[] {'.'}, "Custom_delimitedString")]
+  public void ToPascalCase_ConvertsCorrectly(string subject, char[] delimiters, string expected)
+  {
+    string actual = subject.ToPascalCase(delimiters);
+    Assert.Equal(expected, actual);
+  }
 }
