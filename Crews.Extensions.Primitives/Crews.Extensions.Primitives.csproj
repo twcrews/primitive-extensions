@@ -10,7 +10,7 @@
 
 	<PropertyGroup>
 		<PackageId>Crews.Extensions.Primitives</PackageId>
-		<PackageVersion>1.0.0</PackageVersion>
+		<PackageVersion>1.1.0</PackageVersion>
 		<Authors>Tommy Crews</Authors>
 		<Description>
 			Contains extension methods and other utilities for working with primitive types like strings and integers.
