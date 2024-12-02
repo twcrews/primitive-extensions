@@ -65,6 +65,7 @@ public class StringExtensionsTests
   [InlineData("variable_delimited-and.Cased string", new char[] {}, "VariableDelimitedAnd.CasedString")]
   [InlineData("PascalCaseString", new char[] {}, "PascalCaseString")]
   [InlineData("custom_delimited.string", new char[] {'.'}, "Custom_delimitedString")]
+  [InlineData("ab_short_substring", new char[] {}, "ABShortSubstring")]
   public void ToPascalCase_ConvertsCorrectly(string subject, char[] delimiters, string expected)
   {
     string actual = subject.ToPascalCase(delimiters);
