@@ -79,5 +79,5 @@ public static class StringExtensions
   public static string ToPascalCase(this string target, params char[] delimiters) => string.Join("", target
     .Split(delimiters.Length > 0 ? delimiters : ['-', ' ', '_'], 
       StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-    .Select(word => char.ToUpper(word[0]) + word[1..]));
+    .Select(word => word.Length < 3 ? word.ToUpper() : char.ToUpper(word[0]) + word[1..]));
 }
