@@ -29,7 +29,7 @@ public class StringExtensionsTests
   public void TrimStart_ReturnsCorrectlyTrimmedString(string subject, string param, string expected)
     => Assert.Equal(expected, subject.TrimStart(param));
 
-  [Theory(DisplayName = "TrimStart successfully trims all leading occurrances of a given string.")]
+  [Theory(DisplayName = "TrimEnd successfully trims all trailing occurrances of a given string.")]
   [InlineData("Hello world!#@#@#@", "#@", "Hello world!")]
   [InlineData("Hello world!abc123abc", "abc", "Hello world!abc123")]
   [InlineData("Hello world!123abc", "123", "Hello world!123abc")]
