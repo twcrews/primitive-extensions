@@ -70,4 +70,60 @@ public class StringExtensionsTests
     string actual = subject.ToPascalCase(delimiters);
     Assert.Equal(expected, actual);
   }
+
+  [Fact(DisplayName = "Split throws ArgumentNullException when source is null.")]
+  public void Split_ThrowsArgumentNullException_WhenSourceIsNull()
+  {
+    string? source = null;
+    Assert.Throws<ArgumentNullException>(() => StringExtensions.Split(source!, "delimiter"));
+  }
+
+  [Fact(DisplayName = "Split throws ArgumentNullException when delimiter is null.")]
+  public void Split_ThrowsArgumentNullException_WhenDelimiterIsNull()
+  {
+    string source = "test string";
+    Assert.Throws<ArgumentNullException>(() => StringExtensions.Split(source, null!));
+  }
+
+  [Fact(DisplayName = "Split throws ArgumentException when delimiter is empty.")]
+  public void Split_ThrowsArgumentException_WhenDelimiterIsEmpty()
+  {
+    string source = "test string";
+    Assert.Throws<ArgumentException>(() => StringExtensions.Split(source, string.Empty));
+  }
+
+  [Theory(DisplayName = "Split correctly splits strings using string delimiter.")]
+  [InlineData("apple,banana,cherry", ",", new string[] { "apple", "banana", "cherry" })]
+  [InlineData("one::two::three", "::", new string[] { "one", "two", "three" })]
+  [InlineData("hello world", " ", new string[] { "hello", "world" })]
+  [InlineData("no-delimiters", ",", new string[] { "no-delimiters" })]
+  [InlineData("start,middle,end", ",", new string[] { "start", "middle", "end" })]
+  [InlineData("double--dash--separated", "--", new string[] { "double", "dash", "separated" })]
+  public void Split_SplitsCorrectly(string source, string delimiter, string[] expected)
+  {
+    string[] actual = StringExtensions.Split(source, delimiter);
+    Assert.Equal(expected, actual);
+  }
+
+  [Theory(DisplayName = "Split handles empty segments based on StringSplitOptions.")]
+  [InlineData(",apple,,banana,", ",", StringSplitOptions.None, new string[] { "", "apple", "", "banana", "" })]
+  [InlineData(",apple,,banana,", ",", StringSplitOptions.RemoveEmptyEntries, new string[] { "apple", "banana" })]
+  [InlineData("::start::::end::", "::", StringSplitOptions.None, new string[] { "", "start", "", "end", "" })]
+  [InlineData("::start::::end::", "::", StringSplitOptions.RemoveEmptyEntries, new string[] { "start", "end" })]
+  public void Split_HandlesEmptySegments(string source, string delimiter, StringSplitOptions options, string[] expected)
+  {
+    string[] actual = StringExtensions.Split(source, delimiter, options);
+    Assert.Equal(expected, actual);
+  }
+
+  [Theory(DisplayName = "Split handles edge cases correctly.")]
+  [InlineData("", ",", new string[] { "" })]
+  [InlineData("single", ",", new string[] { "single" })]
+  [InlineData(",,,", ",", new string[] { "", "", "", "" })]
+  [InlineData("delimiter", "delimiter", new string[] { "", "" })]
+  public void Split_HandlesEdgeCases(string source, string delimiter, string[] expected)
+  {
+    string[] actual = StringExtensions.Split(source, delimiter);
+    Assert.Equal(expected, actual);
+  }
 }

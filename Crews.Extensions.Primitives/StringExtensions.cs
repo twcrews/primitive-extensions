@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -78,9 +79,52 @@ namespace Crews.Extensions.Primitives
     /// </param>
     /// <returns>A pascal case form of <paramref name="target"/>.</returns>
     public static string ToPascalCase(this string target, params char[] delimiters) => string.Join("", target
-      .Split(delimiters.Length > 0 ? delimiters : new char[] { '-', ' ', '_' }, 
+      .Split(delimiters.Length > 0 ? delimiters : new char[] { '-', ' ', '_' },
         StringSplitOptions.RemoveEmptyEntries)
       .Select(s => s.Trim())
       .Select(word => char.ToUpper(word[0]) + word.Substring(1)));
+
+    /// <summary>
+    /// Splits a string using a string delimiter into an array of substrings.
+    /// </summary>
+    /// <param name="source">The string to split</param>
+    /// <param name="delimiter">The string delimiter to split on</param>
+    /// <param name="options">StringSplitOptions to control the splitting behavior</param>
+    /// <returns>An array of strings split by the delimiter</returns>
+    public static string[] Split(this string source, string delimiter, StringSplitOptions options = StringSplitOptions.None)
+    {
+      if (source == null)
+        throw new ArgumentNullException(nameof(source));
+
+      if (delimiter == null)
+        throw new ArgumentNullException(nameof(delimiter));
+
+      if (delimiter.Length == 0)
+        throw new ArgumentException("Delimiter cannot be empty", nameof(delimiter));
+
+			List<string> result = new List<string>();
+      int currentIndex = 0;
+      int delimiterIndex;
+
+      while ((delimiterIndex = source.IndexOf(delimiter, currentIndex)) != -1)
+      {
+        string substring = source.Substring(currentIndex, delimiterIndex - currentIndex);
+
+        if (options != StringSplitOptions.RemoveEmptyEntries || !string.IsNullOrEmpty(substring))
+        {
+          result.Add(substring);
+        }
+
+        currentIndex = delimiterIndex + delimiter.Length;
+      }
+
+      string remainingSubstring = source.Substring(currentIndex);
+      if (options != StringSplitOptions.RemoveEmptyEntries || !string.IsNullOrEmpty(remainingSubstring))
+      {
+        result.Add(remainingSubstring);
+      }
+
+      return result.ToArray();
+    }
   }
 }
