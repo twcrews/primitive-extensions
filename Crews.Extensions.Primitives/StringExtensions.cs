@@ -83,7 +83,7 @@ namespace Crews.Extensions.Primitives
         StringSplitOptions.RemoveEmptyEntries)
       .Select(s => s.Trim())
       .Select(word => char.ToUpper(word[0]) + word.Substring(1)));
-      
+
     /// <summary>
     /// Splits a string using a string delimiter into an array of substrings.
     /// </summary>
@@ -93,38 +93,38 @@ namespace Crews.Extensions.Primitives
     /// <returns>An array of strings split by the delimiter</returns>
     public static string[] Split(this string source, string delimiter, StringSplitOptions options = StringSplitOptions.None)
     {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-        
-        if (delimiter == null)
-            throw new ArgumentNullException(nameof(delimiter));
-        
-        if (delimiter.Length == 0)
-            throw new ArgumentException("Delimiter cannot be empty", nameof(delimiter));
+      if (source == null)
+        throw new ArgumentNullException(nameof(source));
 
-        var result = new List<string>();
-        int currentIndex = 0;
-        int delimiterIndex;
+      if (delimiter == null)
+        throw new ArgumentNullException(nameof(delimiter));
 
-        while ((delimiterIndex = source.IndexOf(delimiter, currentIndex)) != -1)
+      if (delimiter.Length == 0)
+        throw new ArgumentException("Delimiter cannot be empty", nameof(delimiter));
+
+			List<string> result = new List<string>();
+      int currentIndex = 0;
+      int delimiterIndex;
+
+      while ((delimiterIndex = source.IndexOf(delimiter, currentIndex)) != -1)
+      {
+        string substring = source.Substring(currentIndex, delimiterIndex - currentIndex);
+
+        if (options != StringSplitOptions.RemoveEmptyEntries || !string.IsNullOrEmpty(substring))
         {
-            string substring = source.Substring(currentIndex, delimiterIndex - currentIndex);
-            
-            if (options != StringSplitOptions.RemoveEmptyEntries || !string.IsNullOrEmpty(substring))
-            {
-                result.Add(substring);
-            }
-            
-            currentIndex = delimiterIndex + delimiter.Length;
+          result.Add(substring);
         }
 
-        string remainingSubstring = source.Substring(currentIndex);
-        if (options != StringSplitOptions.RemoveEmptyEntries || !string.IsNullOrEmpty(remainingSubstring))
-        {
-            result.Add(remainingSubstring);
-        }
+        currentIndex = delimiterIndex + delimiter.Length;
+      }
 
-        return result.ToArray();
+      string remainingSubstring = source.Substring(currentIndex);
+      if (options != StringSplitOptions.RemoveEmptyEntries || !string.IsNullOrEmpty(remainingSubstring))
+      {
+        result.Add(remainingSubstring);
+      }
+
+      return result.ToArray();
     }
   }
 }
